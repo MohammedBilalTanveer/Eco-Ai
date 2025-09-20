@@ -5,7 +5,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet'; // Import Leaflet core for marker icon fix
 import { authFetch } from '../../services/api';
-
+import Footer from '../Footer';
 // Fix for Leaflet default marker icons
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -45,39 +45,53 @@ const GarbageTrucks = () => {
   }, []);
 
   return (
-    <div className="container mx-auto p-4 md:p-8 flex flex-col h-full">
-      <h1 className="text-4xl font-bold text-center mb-2 text-primary">Live Garbage Truck Map</h1>
-      <p className="text-center text-gray-400 mb-8">Real-time simulation of garbage truck locations.</p>
+    <>
+      <div className="bg-[#050414] min-h-screen flex flex-col items-center justify-center px-4 md:px-10 py-12">
+      <div className="w-full max-w-7xl">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-4 text-white">
+          Live <span className="text-[#8245ec]">Garbage Truck</span> Map
+        </h1>
+        <p className="text-center text-gray-400 mb-10">
+          Real-time simulation of garbage truck locations across your city.
+        </p>
 
-      <div className="flex-grow bg-gray-900/50 p-4 rounded-xl border border-gray-800" style={{ minHeight: '60vh' }}>
-        {loading ? (
-          <p className="text-center text-xl">Loading map and truck locations...</p>
-        ) : error ? (
-          <p className="text-center text-xl text-red-400">{error}</p>
-        ) : (
-          <MapContainer
-            center={mapCenter}
-            zoom={12}
-            style={{ height: '100%', width: '100%', minHeight: '400px' }} // Ensure explicit minHeight
-            key={mapCenter.join(',')} // Force re-render on center change
-          >
-            <TileLayer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            />
-            {trucks.length > 0 ? (
-              trucks.map((truck) => (
-                <Marker key={truck.id} position={[truck.lat, truck.lng]}>
-                  <Popup>Truck ID: {truck.id}</Popup>
-                </Marker>
-              ))
-            ) : (
-              <div className="text-center text-gray-400">No trucks are currently active.</div>
-            )}
-          </MapContainer>
-        )}
+        <div className="bg-gray-900/70 backdrop-blur-md p-6 rounded-2xl border border-white/10 shadow-[0_0_30px_rgba(130,69,236,0.4)]">
+          {loading ? (
+            <p className="text-center text-xl text-gray-300">Loading map and truck locations...</p>
+          ) : error ? (
+            <p className="text-center text-xl text-red-400">{error}</p>
+          ) : (
+            <MapContainer
+              center={mapCenter}
+              zoom={12}
+              style={{ height: '70vh', width: '100%' }} // Increased height to 70% viewport
+              key={mapCenter.join(',')} // Force re-render on center change
+              className="rounded-xl overflow-hidden shadow-lg"
+            >
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              />
+              {trucks.length > 0 ? (
+                trucks.map((truck) => (
+                  <Marker key={truck.id} position={[truck.lat, truck.lng]}>
+                    <Popup>
+                      <div className="text-sm font-semibold text-gray-800">
+                        🚛 Truck ID: {truck.id}
+                      </div>
+                    </Popup>
+                  </Marker>
+                ))
+              ) : (
+                <p className="text-center text-gray-400">No trucks are currently active.</p>
+              )}
+            </MapContainer>
+          )}
+        </div>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 };
 

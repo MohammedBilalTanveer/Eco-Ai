@@ -12,6 +12,7 @@ import ChatPage from './components/pages/ChatPage';
 import StaffDashboard from './components/pages/staff/StaffDashboard';
 import StaffReportDetail from './components/pages/staff/StaffReportDetail';
 import ProtectedRoute from './components/ProtectedRoute';
+import MainPage from './components/pages/MAinPage';
 
 export default function App() {
   return (
@@ -31,6 +32,8 @@ export default function App() {
             <Route path="/report-food" element={<ProtectedRoute><FoodWastePage /></ProtectedRoute>} />
             <Route path="/live-map" element={<ProtectedRoute><GarbageTrucks /></ProtectedRoute>} />
             <Route path="/chatbot" element={<ProtectedRoute><ChatPage /></ProtectedRoute>} />
+            <Route path="/MainPage" element={<ProtectedRoute><MainPage /></ProtectedRoute>} />
+
 
             {/* Staff Protected Routes */}
             <Route path="/staff/dashboard" element={<ProtectedRoute role="staff"><StaffDashboard /></ProtectedRoute>} />
