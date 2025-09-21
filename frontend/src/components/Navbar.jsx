@@ -67,11 +67,10 @@ const Navbar = () => {
       }`}
     >
       <div className="text-white py-5 flex justify-between items-center">
-        <Link to="/" className="text-lg font-semibold cursor-pointer">
-          <span className="text-[#8245ec]">&lt;</span>
+        <Link to="/" className="text-2xl font-semibold cursor-pointer">
           <span className="text-white">Eco</span>
+          <span className="text-white"> </span>
           <span className="text-[#8245ec]">AI</span>
-          <span className="text-[#8245ec]">&gt;</span>
         </Link>
 
         {/* Desktop Menu */}

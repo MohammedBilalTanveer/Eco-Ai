@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { saveTokens } from '../../services/api';
 import { motion } from 'framer-motion';
 import { FiUser, FiLock } from 'react-icons/fi';
+import Footer from '../Footer';
 
 const FloatingBlob = ({ size, color, top, left, delay }) => (
   <motion.div
@@ -47,9 +48,6 @@ const Login = () => {
   return (
     <>
     <div className="bg-[#050414] min-h-screen flex items-center justify-center relative overflow-hidden px-4">
-      {/* Background Grid */}
-
-      {/* Floating Blobs */}
       
 
       <motion.div

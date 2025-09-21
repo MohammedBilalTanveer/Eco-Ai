@@ -1,23 +1,19 @@
+// src/components/Contact.jsx
 import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { ToastContainer, toast } from "react-toastify";
+import { motion } from "framer-motion";
+import { FiMail, FiUser, FiEdit3 } from "react-icons/fi";
 import "react-toastify/dist/ReactToastify.css";
-
 
 const Contact = () => {
   const form = useRef();
   const [isSent, setIsSent] = useState(false);
-  
+
   const sendEmail = (e) => {
     e.preventDefault();
-
     emailjs
-      .sendForm(
-        "service_hc3ymvj",  
-        "template_ez9bw4e", 
-        form.current,
-        "EZd_-9QWM0kBzphGC"
-      )
+      .sendForm("service_hc3ymvj", "template_ez9bw4e", form.current, "EZd_-9QWM0kBzphGC")
       .then(
         () => {
           setIsSent(true);
@@ -25,22 +21,13 @@ const Contact = () => {
           toast.success("Message sent successfully! ✅", {
             position: "top-right",
             autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
             theme: "dark",
           });
         },
-        (error) => {
-          console.error("Error sending message:", error);
+        () => {
           toast.error("Failed to send message. Please try again.", {
             position: "top-right",
             autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
             theme: "dark",
           });
         }
@@ -48,63 +35,78 @@ const Contact = () => {
   };
 
   return (
-    <section
-      id="contact"
-      className="flex flex-col items-center justify-center py-24 px-[12vw] md:px-[7vw] lg:px-[20vw]"
-    >
+    <section className="flex flex-col items-center justify-center relative px-4 mt-1">
       <ToastContainer />
 
-      <div className="text-center mb-16">
-        <h2 className="text-4xl font-bold text-white">CONTACT</h2>
-        <div className="w-32 h-1 bg-purple-500 mx-auto mt-4"></div>
-        <p className="text-gray-400 mt-4 text-lg font-semibold">
-          I’d love to hear from you—reach out for any opportunities or questions!
+      <h2 className="text-5xl text-center text-white font-bold mb-10">
+        Contact <span className="text-[#8245ec]">Us</span>
+      </h2>
+      <div className="mb-4"></div>
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+        className="relative w-full max-w-md bg-gray-900/70 backdrop-blur-md p-8 rounded-2xl border border-white/10 shadow-[0_0_30px_rgba(130,69,236,0.4)]"
+      >
+        <p className="text-gray-200 mb-6 text-center">
+          We'd love to hear from you!
         </p>
-      </div>
 
-      <div className="mt-8 w-full max-w-md bg-[#0d081f] p-6 rounded-lg shadow-lg border border-gray-700">
-        <h3 className="text-xl font-semibold text-white text-center">
-          Connect US <span className="ml-1">🚀</span>
-        </h3>
+        <form ref={form} onSubmit={sendEmail} className="space-y-5">
+          <div className="relative">
+            <FiMail className="absolute left-3 top-3 text-gray-400 text-xl" />
+            <input
+              type="email"
+              name="user_email"
+              placeholder="Your Email"
+              required
+              className="w-full pl-10 p-3 bg-gray-800/80 rounded-lg focus:ring-2 focus:ring-[#8245ec] outline-none text-white"
+            />
+          </div>
 
-        <form ref={form} onSubmit={sendEmail} className="mt-4 flex flex-col space-y-4">
-          <input
-            type="email"
-            name="user_email"
-            placeholder="Your Email"
-            required
-            className="w-full p-3 rounded-md bg-[#131025] text-white border border-gray-600 focus:outline-none focus:border-purple-500"
-          />
-          <input
-            type="text"
-            name="user_name"
-            placeholder="Your Name"
-            required
-            className="w-full p-3 rounded-md bg-[#131025] text-white border border-gray-600 focus:outline-none focus:border-purple-500"
-          />
-          <input
-            type="text"
-            name="subject"
-            placeholder="Subject"
-            required
-            className="w-full p-3 rounded-md bg-[#131025] text-white border border-gray-600 focus:outline-none focus:border-purple-500"
-          />
-          <textarea
-            name="message"
-            placeholder="Message"
-            rows="4"
-            required
-            className="w-full p-3 rounded-md bg-[#131025] text-white border border-gray-600 focus:outline-none focus:border-purple-500"
-          />
-          
+          <div className="relative">
+            <FiUser className="absolute left-3 top-3 text-gray-400 text-xl" />
+            <input
+              type="text"
+              name="user_name"
+              placeholder="Your Name"
+              required
+              className="w-full pl-10 p-3 bg-gray-800/80 rounded-lg focus:ring-2 focus:ring-[#8245ec] outline-none text-white"
+            />
+          </div>
+
+          <div className="relative">
+            <FiEdit3 className="absolute left-3 top-3 text-gray-400 text-xl" />
+            <input
+              type="text"
+              name="subject"
+              placeholder="Subject"
+              required
+              className="w-full pl-10 p-3 bg-gray-800/80 rounded-lg focus:ring-2 focus:ring-[#8245ec] outline-none text-white"
+            />
+          </div>
+
+          <div className="relative">
+            <FiEdit3 className="absolute left-3 top-3 text-gray-400 text-xl" />
+            <textarea
+              name="message"
+              placeholder="Message"
+              rows="4"
+              required
+              className="w-full pl-10 p-3 bg-gray-800/80 rounded-lg focus:ring-2 focus:ring-[#8245ec] outline-none text-white"
+            />
+          </div>
+
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-purple-600 to-pink-500 py-3 text-white font-semibold rounded-md hover:opacity-90 transition"
+            className="w-full py-3 bg-gradient-to-r from-[#8245ec] to-purple-500 rounded-lg font-bold text-white shadow hover:from-purple-500 hover:to-[#8245ec] transition-all"
           >
-            Send
+            {isSent ? "Sent ✅" : "Send"}
           </button>
         </form>
-      </div>
+      </motion.div>
     </section>
   );
 };

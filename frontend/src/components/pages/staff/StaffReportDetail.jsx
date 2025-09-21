@@ -51,9 +51,13 @@ const StaffReportDetail = () => {
       <div className="grid lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 bg-gray-900/50 p-6 rounded-xl border border-gray-800">
           <h2 className="text-2xl font-bold mb-4">Submitted Image</h2>
-          <img src={report.image} alt={`Report ${report.id}`} className="w-full max-h-96 object-contain rounded-lg" />
+          <img
+            src={report.image}
+            alt={`Report ${report.id}`}
+            className="w-full h-auto object-cover rounded-lg"
+          />
         </div>
-        
+
         <div className="space-y-6">
           <div className="bg-gray-900/50 p-6 rounded-xl border border-gray-800">
             <h2 className="text-2xl font-bold mb-4">Information</h2>
@@ -63,7 +67,7 @@ const StaffReportDetail = () => {
             <p><strong>Submitted:</strong> {new Date(report.uploaded_at).toLocaleString()}</p>
             <p><strong>Description:</strong> {report.description || 'N/A'}</p>
           </div>
-          
+
           <div className="bg-gray-900/50 p-6 rounded-xl border border-gray-800">
             <h2 className="text-2xl font-bold mb-4">AI Analysis</h2>
             <p><strong>Confidence Score:</strong> {(report.confidence * 100).toFixed(1)}%</p>
@@ -86,7 +90,7 @@ const StaffReportDetail = () => {
             <button
               onClick={handleStatusUpdate}
               disabled={isUpdating}
-              className="w-full mt-4 py-3 bg-primary rounded-lg font-bold hover:bg-opacity-80 disabled:opacity-50"
+              className="w-full py-3 mt-4 bg-gradient-to-r from-[#8245ec] to-purple-500 rounded-lg font-bold text-white shadow hover:from-purple-500 hover:to-[#8245ec] transition-all disabled:opacity-50"
             >
               {isUpdating ? 'Updating...' : 'Update Status'}
             </button>
